@@ -1,0 +1,5 @@
+## Interface: 30300
+## Author: SoonBeSteak
+## Title: Buff Watch
+## Notes: Keep track of buffs for your class/pet.
+Core.lua

@@ -1,0 +1,6 @@
+## Interface: 30300
+## Author: SoonBeSteak
+## Title: Buff Watch: Frost Mage
+## Notes: Keep track of buffs for your frost mage.
+## Dependencies: BuffWatch
+Core.lua
