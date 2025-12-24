@@ -7,9 +7,7 @@ local spells = {
 
 local function Init()
 	if UnitClass("player") == "Mage" and BuffWatch_GetTalentSpec() == "Frost" then
-		for k, v in pairs(buffFrame.buttons) do
-			_G[v]:Hide()
-		end
+		BuffWatch_HideButtons()
 
 		for k, spell in pairs(spells) do
 			BuffWatch_CreateBuffButton(buffFrame, 48, (k*48)-48, spell) 

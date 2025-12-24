@@ -23,6 +23,30 @@ function BuffWatch_GetTalentSpec()
 	return mainSpecName, maxPoints
 end
 
+function BuffWatch_HideButtons()
+	--[[
+	local buttons = buffFrame.buttons or {}
+
+	for _, button in pairs(buttons) do
+		_G[button]:Hide()
+	end
+	]]
+
+	local i = 1
+
+	while _G["BuffWatchFrameButton"..i] ~= nil do
+		_G["BuffWatchFrameButton"..i]:Hide()
+
+		i = i + 1
+	end
+end
+
+function BuffWatch_ShowButtons(num)
+	for i=1,num,1 do
+		_G["BuffWatchFrameButton"..i]:Show()
+	end
+end
+
 local function GetUnitByGUID(guid)
 	if UnitGUID("player") == guid then
 		return "player"
@@ -170,12 +194,24 @@ local function OnUpdate(self, elapsed)
 	end
 end
 
+local function GetButtonCount()
+	local i = 1
+
+	while _G["BuffWatchFrameButton"..i] ~= nil do
+		i = i + 1
+	end
+
+	return i-1
+end
+
 -- Function to create a buff button
 function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 	local spellName = GetSpellInfo(spellID)
 
-	local buttonName = ("%sFrame"):format(spellName:gsub("\'", ""):gsub(" ", ""))
+	--local buttonName = ("%sFrame"):format(spellName:gsub("\'", ""):gsub(" ", ""))
+	local buttonName = "BuffWatchFrameButton"..(GetButtonCount()+1)
 
+	--[[
 	local buttons = BuffWatchFrame.buttons or {}
 	local found = false
 	for k,v in pairs(buttons) do
@@ -188,6 +224,7 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 		tinsert(buttons, buttonName)
 	end
 	BuffWatchFrame.buttons = buttons
+	]]
 
 	local button = _G[buttonName] or CreateFrame("Frame", buttonName, parent)
 	button:SetSize(size, size)
