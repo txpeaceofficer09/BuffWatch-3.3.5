@@ -176,7 +176,20 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 
 	local buttonName = ("%sFrame"):format(spellName:gsub("\'", ""):gsub(" ", ""))
 
-	local button = CreateFrame("Frame", buttonName, parent)
+	local buttons = BuffWatchFrame.buttons or {}
+	local found = false
+	for k,v in pairs(buttons) do
+		if v == buttonName then
+			found = true
+			break
+		end
+	end
+	if found == false then
+		tinsert(buttons, buttonName)
+	end
+	BuffWatchFrame.buttons = buttons
+
+	local button = _G[buttonName] or CreateFrame("Frame", buttonName, parent)
 	button:SetSize(size, size)
 	button:SetPoint("LEFT", parent, "LEFT", xOffset, 0)
 	--button:SetMovable(true)
@@ -215,15 +228,3 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 
 	return button
 end
-
---[[
-if UnitClass("player") == "Hunter" then
-	for k, spell in pairs(spells) do
-		CreateBuffButton(buffFrame, 48, (k*48)-48, spell) 
-	end
-
-	buffFrame:Show()
-else
-    buffFrame:Hide()
-end
-]]
