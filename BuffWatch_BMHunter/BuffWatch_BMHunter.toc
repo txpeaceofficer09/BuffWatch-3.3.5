@@ -1,0 +1,6 @@
+## Interface: 30300
+## Author: SoonBeSteak
+## Title: Buff Watch: Beast Mastery Hunter
+## Notes: Keep track of buffs for your beast mastery hunter.
+## Dependencies: BuffWatch
+Core.lua

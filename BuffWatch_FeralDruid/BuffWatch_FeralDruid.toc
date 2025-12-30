@@ -1,0 +1,6 @@
+## Interface: 30300
+## Author: SoonBeSteak
+## Title: Buff Watch: Feral Druid
+## Notes: Keep track of buffs for your feral druid.
+## Dependencies: BuffWatch
+Core.lua

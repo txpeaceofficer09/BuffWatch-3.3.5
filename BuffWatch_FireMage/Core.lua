@@ -1,12 +1,11 @@
 local buffFrame = _G["BuffWatchFrame"]
 
 local spells = {
-	57761, -- Brain Freeze
-	74396, -- Fingers of Frost
+	48108, -- Hot Streak
 }
 
 local function Init()
-	if UnitClass("player") == "Mage" and BuffWatch_GetTalentSpec() == "Frost" then
+	if UnitClass("player") == "Mage" and BuffWatch_GetTalentSpec() == "Fire" then
 		BuffWatch_HideButtons()
 
 		for k, spell in pairs(spells) do

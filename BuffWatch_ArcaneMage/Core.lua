@@ -6,7 +6,7 @@ local spells = {
 }
 
 local function Init()
-	if UnitClass("player") == "Mage" and BuffWatch_GetTalentSpec() == "Frost" then
+	if UnitClass("player") == "Mage" and BuffWatch_GetTalentSpec() == "Arcane" then
 		BuffWatch_HideButtons()
 
 		for k, spell in pairs(spells) do
@@ -26,5 +26,3 @@ end)
 buffFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 buffFrame:RegisterEvent("PLAYER_LOGIN")
 buffFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-Init()

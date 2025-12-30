@@ -1,12 +1,12 @@
 local buffFrame = _G["BuffWatchFrame"]
 
 local spells = {
-	57761, -- Brain Freeze
-	74396, -- Fingers of Frost
+	27046, -- Mend Pet
+	1539, -- Feed Pet
 }
 
 local function Init()
-	if UnitClass("player") == "Mage" and BuffWatch_GetTalentSpec() == "Frost" then
+	if UnitClass("player") == "Hunter" and BuffWatch_GetTalentSpec() == "Beast Mastery" then
 		BuffWatch_HideButtons()
 
 		for k, spell in pairs(spells) do
@@ -26,5 +26,3 @@ end)
 buffFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 buffFrame:RegisterEvent("PLAYER_LOGIN")
 buffFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-Init()

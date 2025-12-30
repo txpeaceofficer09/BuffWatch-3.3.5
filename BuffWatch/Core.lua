@@ -209,7 +209,10 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 	local spellName = GetSpellInfo(spellID)
 
 	--local buttonName = ("%sFrame"):format(spellName:gsub("\'", ""):gsub(" ", ""))
-	local buttonName = "BuffWatchFrameButton"..(GetButtonCount()+1)
+	--local buttonName = "BuffWatchFrameButton"..(GetButtonCount()+1)
+	local i = (xOffset / size) + 1
+
+	local buttonName = "BuffWatchFrameButton"..i
 
 	--[[
 	local buttons = BuffWatchFrame.buttons or {}

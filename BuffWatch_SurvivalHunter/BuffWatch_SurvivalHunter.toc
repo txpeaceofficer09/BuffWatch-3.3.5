@@ -1,0 +1,6 @@
+## Interface: 30300
+## Author: SoonBeSteak
+## Title: Buff Watch: Survival Hunter
+## Notes: Keep track of buffs for your survival hunter.
+## Dependencies: BuffWatch
+Core.lua

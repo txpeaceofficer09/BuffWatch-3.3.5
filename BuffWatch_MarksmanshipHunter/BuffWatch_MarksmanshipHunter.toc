@@ -1,0 +1,6 @@
+## Interface: 30300
+## Author: SoonBeSteak
+## Title: Buff Watch: Marksmanship Hunter
+## Notes: Keep track of buffs for your marksmanship hunter.
+## Dependencies: BuffWatch
+Core.lua

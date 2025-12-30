@@ -1,0 +1,6 @@
+## Interface: 30300
+## Author: SoonBeSteak
+## Title: Buff Watch: Fire Mage
+## Notes: Keep track of buffs for your fire mage.
+## Dependencies: BuffWatch
+Core.lua
