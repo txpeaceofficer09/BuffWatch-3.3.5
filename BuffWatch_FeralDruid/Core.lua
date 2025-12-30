@@ -68,3 +68,5 @@ buffFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
 buffFrame:RegisterEvent("PLAYER_LOGIN")
 buffFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
 buffFrame:RegisterEvent("COMABT_LOG_EVENT_UNFILTERED")
+
+Init()
