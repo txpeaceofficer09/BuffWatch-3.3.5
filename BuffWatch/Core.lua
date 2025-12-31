@@ -1,6 +1,6 @@
 -- Create a new frame to hold the buttons
 local buffFrame = CreateFrame("Frame", "BuffWatchFrame", UIParent)
-buffFrame:SetSize(64, 32) -- Adjust size as needed
+buffFrame:SetSize(32, 32)
 buffFrame:SetPoint("CENTER", UIParent, "CENTER", 0, -100) -- Adjust position as needed
 buffFrame:SetMovable(true)
 
@@ -24,14 +24,6 @@ function BuffWatch_GetTalentSpec()
 end
 
 function BuffWatch_HideButtons()
-	--[[
-	local buttons = buffFrame.buttons or {}
-
-	for _, button in pairs(buttons) do
-		_G[button]:Hide()
-	end
-	]]
-
 	local i = 1
 
 	while _G["BuffWatchFrameButton"..i] ~= nil do
@@ -48,32 +40,10 @@ function BuffWatch_ShowButtons(num)
 end
 
 local function GetUnitByGUID(guid)
-	if UnitGUID("player") == guid then
-		return "player"
-	end
+	local units = {"player", "playerpet", "target", "targetpet", "focus", "focuspet"}
 
-	if UnitGUID("playerpet") == guid then
-		return "playerpet"
-	end
-	
-	if UnitGUID("target") == guid then
-		return "target"
-	end
-	
-	if UnitGUID("targetpet") == guid then
-		return "targetpet"
-	end
-	
-	if UnitGUID("focus") == guid then
-		return "focus"
-	end
-
-	if UnitGUID("focustarget") == guid then
-		return "focustarget"
-	end
-	
-	if UnitGUID("focuspet") == guid then
-		return "focuspet"
+	for _, unit in ipairs(units) do
+		if UnitGUID(unit) == guid then return unit end
 	end
 
 	local numMembers, groupType = GetNumGroupMembers()
@@ -94,24 +64,6 @@ local function GetUnitByGUID(guid)
 			return unitFocus
 		end
 	end
-
-	--[[
-	for i=1,40,1 do
-		if UnitGUID("party"..i) and UnitGUID("party"..i) == guid then
-			return "party"..i
-		elseif UnitGUID("party"..i.."target") and UnitGUID("party"..i.."target") == guid then
-			return "party"..i.."target"
-		elseif UnitGUID("party"..i.."pet") and UnitGUID("party"..i.."pet") == guid then
-			return "party"..i.."pet"
-		elseif UnitGUID("raid"..i) and UnitGUID("raid"..i) == guid then
-			return "raid"..i
-		elseif UnitGUID("raid"..i.."target") and UnitGUID("raid"..i.."target") == guid then
-			return "raid"..i.."target"
-		elseif UnitGUID("raid"..i.."pet") and UnitGUID("raid"..i.."pet") == guid then
-			return "raid"..i.."pet"
-		end		
-	end
-	]]
 
 	return nil
 end
@@ -207,29 +159,10 @@ end
 -- Function to create a buff button
 function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 	local spellName = GetSpellInfo(spellID)
-
-	--local buttonName = ("%sFrame"):format(spellName:gsub("\'", ""):gsub(" ", ""))
-	--local buttonName = "BuffWatchFrameButton"..(GetButtonCount()+1)
 	local i = (xOffset / size) + 1
-
 	local buttonName = "BuffWatchFrameButton"..i
-
-	--[[
-	local buttons = BuffWatchFrame.buttons or {}
-	local found = false
-	for k,v in pairs(buttons) do
-		if v == buttonName then
-			found = true
-			break
-		end
-	end
-	if found == false then
-		tinsert(buttons, buttonName)
-	end
-	BuffWatchFrame.buttons = buttons
-	]]
-
 	local button = _G[buttonName] or CreateFrame("Frame", buttonName, parent)
+
 	button:SetSize(size, size)
 	button:SetPoint("LEFT", parent, "LEFT", xOffset, 0)
 	--button:SetMovable(true)
