@@ -37,6 +37,13 @@ function BuffWatch_ShowButtons(num)
 	for i=1,num,1 do
 		_G["BuffWatchFrameButton"..i]:Show()
 	end
+
+	local n = num + 1
+
+	while _G["BuffWatchFrameButton"..n] ~= nil do
+		_G["BuffWatchFrameButton"..n]:Hide()
+		n = n + 1
+	end
 end
 
 local function GetUnitByGUID(guid)
