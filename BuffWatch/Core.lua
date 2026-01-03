@@ -40,10 +40,12 @@ function BuffWatch_ShowButtons(num)
 
 	local n = num + 1
 
+	--[[
 	while _G["BuffWatchFrameButton"..n] ~= nil do
 		_G["BuffWatchFrameButton"..n]:Hide()
 		n = n + 1
 	end
+	]]
 end
 
 local function GetUnitByGUID(guid)
@@ -175,8 +177,10 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 	--button:SetMovable(true)
 	button:EnableMouse(true)
 	button:RegisterForDrag("LeftButton")
-	button:SetScript("OnDragStart", function(self) self:GetParent():StartMoving() end)
-	button:SetScript("OnDragStop", function(self) self:GetParent():StopMovingOrSizing() end)
+	--button:SetScript("OnDragStart", function(self) self:GetParent():StartMoving() end)
+	--button:SetScript("OnDragStop", function(self) self:GetParent():StopMovingOrSizing() end)
+	button:SetScript("OnDragStart", function(self) buffFrame:StartMoving() end)
+	button:SetScript("OnDragStop", function(self) buffFrame:StopMovingOrSizing() end)
 	button:SetAlpha(INACTIVE_ALPHA)
 	button.spellID = spellID
 	--button.duration = duration
@@ -207,4 +211,15 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 	button:Show()
 
 	return button
+end
+
+function BuffWatch_CreateSpecBar(class, spec)
+	local barName = ("BuffWatch%s%sFrame"):format(class:gsub(" ", ""), spec:gsub(" ", ""))
+
+	local bar = _G[barName] or CreateFrame("frame", barName, BuffWatchFrame)
+
+	bar:SetAllPoints(BuffWatchFrame)
+	--bar:Show()
+
+	return bar
 end
