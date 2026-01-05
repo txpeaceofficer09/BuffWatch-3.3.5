@@ -48,6 +48,15 @@ function BuffWatch_ShowButtons(num)
 	]]
 end
 
+function BuffWatch_HideBars()
+	local count = buffFrame:GetNumChildren()
+
+	for i = 1, count do
+		local child = select(i, buffFrame:GetChildren())
+		child:Hide()
+	end
+end
+
 local function GetUnitByGUID(guid)
 	local units = {"player", "playerpet", "target", "targetpet", "focus", "focuspet"}
 
@@ -214,12 +223,15 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 end
 
 function BuffWatch_CreateSpecBar(class, spec)
-	local barName = ("BuffWatch%s%sFrame"):format(class:gsub(" ", ""), spec:gsub(" ", ""))
+	if spec ~= nil then
+		local barName = ("BuffWatch%s%sFrame"):format(class:gsub(" ", ""), spec:gsub(" ", ""))
+		local bar = _G[barName] or CreateFrame("frame", barName, BuffWatchFrame)
 
-	local bar = _G[barName] or CreateFrame("frame", barName, BuffWatchFrame)
+		bar:SetAllPoints(BuffWatchFrame)
+		--bar:Show()
 
-	bar:SetAllPoints(BuffWatchFrame)
-	--bar:Show()
+		return bar
+	end
 
-	return bar
+	return nil
 end
