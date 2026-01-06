@@ -119,7 +119,8 @@ local function OnEvent(self, event, ...)
 		if srcGUID == UnitGUID("player") then
 			if subEvent == "SPELL_AURA_APPLIED" or subEvent == "SPELL_AURA_APPLIED_DOSE" or subEvent == "SPELL_AURA_REFRESH" then
 				if spellID == self.spellID then
-					local unit = GetUnitByGUID(dstGUID)
+					--local unit = GetUnitByGUID(dstGUID)
+					local unit = UnitTokenFromGUID(dstGUID)
 
 					self:SetAlpha(ACTIVE_ALPHA)
 					self.startTime = GetTime()
