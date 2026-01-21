@@ -7,7 +7,13 @@ buffFrame:SetMovable(true)
 local ACTIVE_ALPHA = 1
 local INACTIVE_ALPHA = 0.25
 
-function BuffWatch_GetTalentSpec()
+BuffWatch = {}
+
+function BuffWatch.print(txt)
+	DEFAULT_CHAT_FRAME:AddMessage(("|cffff8000[BuffWatch]:|r %s"):format(txt or ""))
+end
+
+function BuffWatch.GetTalentSpec()
 	local maxPoints = -1
 	local mainSpecName = "None"
 
@@ -23,7 +29,7 @@ function BuffWatch_GetTalentSpec()
 	return mainSpecName, maxPoints
 end
 
-function BuffWatch_HideButtons()
+function BuffWatch.HideButtons()
 	local i = 1
 
 	while _G["BuffWatchFrameButton"..i] ~= nil do
@@ -33,7 +39,7 @@ function BuffWatch_HideButtons()
 	end
 end
 
-function BuffWatch_ShowButtons(num)
+function BuffWatch.ShowButtons(num)
 	for i=1,num,1 do
 		_G["BuffWatchFrameButton"..i]:Show()
 	end
@@ -48,7 +54,7 @@ function BuffWatch_ShowButtons(num)
 	]]
 end
 
-function BuffWatch_HideBars()
+function BuffWatch.HideBars()
 	local count = buffFrame:GetNumChildren()
 
 	for i = 1, count do
@@ -160,6 +166,7 @@ local function OnUpdate(self, elapsed)
 
 			self.cooldownText:SetText(("%.1f"):format(duration))
 		else
+			self:SetAlpha(INACTIVE_ALPHA)
 			self.cooldownText:SetText("")
 		end
 	end
@@ -176,7 +183,7 @@ local function GetButtonCount()
 end
 
 -- Function to create a buff button
-function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
+function BuffWatch.CreateBuffButton(parent, size, xOffset, spellID)
 	local spellName = GetSpellInfo(spellID)
 	local i = (xOffset / size) + 1
 	local buttonName = "BuffWatchFrameButton"..i
@@ -223,7 +230,7 @@ function BuffWatch_CreateBuffButton(parent, size, xOffset, spellID)
 	return button
 end
 
-function BuffWatch_CreateSpecBar(class, spec)
+function BuffWatch.CreateSpecBar(class, spec)
 	if spec ~= nil then
 		local barName = ("BuffWatch%s%sFrame"):format(class:gsub(" ", ""), spec:gsub(" ", ""))
 		local bar = _G[barName] or CreateFrame("frame", barName, BuffWatchFrame)

@@ -4,29 +4,38 @@ local spells = {
 	48108, -- Hot Streak
 }
 
-local function Init()
-	BuffWatch_HideBars()
+local events = {
+	"ACTIVE_TALENT_GROUP_CHANGED",
+	"PLAYER_LOGIN",
+	"PLAYER_ENTERING_WORLD",
+	"COMBAT_LOG_EVENT_UNFILTERED"
+}
 
-	if UnitClass("player") == "Mage" and BuffWatch_GetTalentSpec() == "Fire" then
-		local bar = BuffWatch_CreateSpecBar(UnitClass("player"), BuffWatch_GetTalentSpec())
-
-		if bar ~= nil then
-			for k, spell in pairs(spells) do
-				BuffWatch_CreateBuffButton(bar, 48, (k*48)-48, spell) 
-			end
-
-			bar:Show()
-			buffFrame:Show()
-		end
-	end
+for _, event in pairs(events) do
+	buffFrame:RegisterEvent(event)
 end
 
 buffFrame:HookScript("OnEvent", function(self, event, ...)
-	Init()
+	if event == "ACTIVE_TALENT_GROUP_CHANGED" or event == "PLAYER_LOGIN" or event == "PLAYER_ENTERING_WORLD" then
+		local class = UnitClass("player")
+		local spec = BuffWatch["GetTalentSpec"]()
+
+		local bar = BuffWatch["CreateSpecBar"](class, spec)
+
+		if class == "Mage" and spec == "Fire" and #(spells) > 0 then
+			BuffWatch["HideBars"]()
+
+			for k, spell in pairs(spells) do
+				BuffWatch["CreateBuffButton"](bar, 48, (k*48)-48, spell)
+			end
+
+			bar:Show()
+		end
+	elseif event == "COMBAT_LOG_EVENT_UNFILTERED" then
+		if srcName ~= dstName then
+			if spellID == 29166 then
+				SendChatMessage("You have been innervated.", "WHISPER", nil, dstName)
+			end
+		end
+	end
 end)
-
-buffFrame:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
-buffFrame:RegisterEvent("PLAYER_LOGIN")
-buffFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
-
-Init()
