@@ -5,7 +5,7 @@ buffFrame:SetPoint("CENTER", UIParent, "CENTER", 0, -100) -- Adjust position as 
 buffFrame:SetMovable(true)
 
 local ACTIVE_ALPHA = 1
-local INACTIVE_ALPHA = 0.25
+local INACTIVE_ALPHA = 0.1
 
 BuffWatch = {}
 
